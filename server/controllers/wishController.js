@@ -10,6 +10,24 @@ const getWishes = (req, res) => {
   res.json(wishes);
 };
 
+const addWish = (req, res) => {
+  const { name, image } = req.body;
+  if (!name || !image) {
+    return res.status(417).json("Name and image are required");
+  }
+  wishes.push({ name, image: image });
+  res.json(wishes);
+};
+
+const updateWish = (req, res) => {
+  const { name } = req.params;
+  const selectedElement = wishes.find(wish => wish.name === name);
+  selectedElement.name = req.body.name;
+  res.json(wishes);
+};
+
 module.exports = {
-  getWishes
+  getWishes,
+  addWish,
+  updateWish
 };
